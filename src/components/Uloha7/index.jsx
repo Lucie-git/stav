@@ -1,4 +1,5 @@
-import './ukazatel-uspechu.css'
+import { useState } from 'react';
+import './ukazatel-uspechu.css';
 
 /*
 Zadání 1: Použij prop `barva` ve style atributu.
@@ -8,21 +9,30 @@ Zadání 4. Nastav prvku `ukazatel-uspechu__postup` šířku podle stavové prom
 */
 
 const UkazatelPokroku = ({ barva }) => {
+  const [progress, setProgress] = useState(0);
+
   return (
     <div className="ukazatel-uspechu">
       <div className="ukazatel-uspechu__ramecek">
         <div
           className="ukazatel-uspechu__postup"
           style={{
-            width: '40%',
-            backgroundColor: 'red',
+            width: `${progress}%`,
+            backgroundColor: barva,
           }}
         ></div>
       </div>
-      <button>postoupit o 10 %</button>
+      <button
+        disabled={progress === 100}
+        onClick={() => {
+          setProgress(progress + 10);
+        }}
+      >
+        postoupit o 10 %
+      </button>
     </div>
-  )
-}
+  );
+};
 
 export const Uloha7 = () => {
   return (
@@ -31,5 +41,5 @@ export const Uloha7 = () => {
       <UkazatelPokroku barva="green" />
       <UkazatelPokroku barva="purple" />
     </>
-  )
-}
+  );
+};
